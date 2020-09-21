@@ -56,11 +56,11 @@ LinkList Reverse_Recursion(LinkList*L)//采用递归头插法逆转链表
 	}
 
 	//递归翻转子列表
-	LinkList newList = Reverse_Recursion(&(*L)->next);
+	LinkList newList = Reverse_Recursion(&(*L)->next);//指向最后一个节点，在递归返回过程中一直指向最后一个节点
 
-	(*L)->next->next = (*L)->next;
-	(*L)->next = nullptr;
-	return newList;
+	(*L)->next->next = (*L);//逆向指向前节点，此时当前节点会与前一个节点形成回路
+	(*L)->next = nullptr;//断开回路
+	return newList;//成为新的头节点
 }
 
 int main()
@@ -72,7 +72,7 @@ int main()
 	CreateListTail(&link,num);
 	//迭代头插法反转
 	Reverse_Iteration(&link);
-	link=Reverse_Recursion(&link);
+    link=Reverse_Recursion(&link);
 
 	system("pause");
 	return 0;
