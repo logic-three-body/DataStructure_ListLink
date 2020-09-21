@@ -29,8 +29,12 @@ void CreateListTail(LinkList *L, int n)
 	r->next = NULL;                       /* 表示当前链表结束 */
 }
 
-void Reverse_Iteration(LinkList*L) //采用头插法逆转链表
+void Reverse_Iteration(LinkList*L) //采用迭代头插法逆转链表
 {
+	if (!(*L)->next)//若原链表为空
+	{
+		return;
+	}
 	LinkList tmp = nullptr;//中间临时变量，用于存放链表节点
 	LinkList header;//指向链表第一个节点
 	header = (*L)->next;
@@ -42,6 +46,11 @@ void Reverse_Iteration(LinkList*L) //采用头插法逆转链表
 		(*L)->next = header;//头插法
 		header = tmp;
 	}
+}
+
+LNode*Reverse_Recursion()//采用递归头插法逆转链表
+{
+
 }
 
 int main()
