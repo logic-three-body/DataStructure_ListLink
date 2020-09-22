@@ -12,6 +12,20 @@ typedef struct LNode
 	LNode *next;
 }LNode,*LinkList;
 
+
+Status ListTraverse(LinkList& L)
+{
+	LinkList p = L->next;
+	while (p)
+	{
+		std::cout<<(p->data)<<" ";
+		p = p->next;
+	}
+	printf("\n");
+	return OK;
+}
+
+
 /*  建立带表头结点的单链线性表L（尾插法） */
 void CreateListTail(LinkList *L, int n)
 {
@@ -68,11 +82,18 @@ int main()
 	LinkList link;
 	int num;//链表数量
 	std::cin >> num;
+	while (num!=0)
+	{
 	//尾插法创建链表
 	CreateListTail(&link,num);
+	ListTraverse(link);
 	//迭代头插法反转
 	Reverse_Iteration(&link);
+	ListTraverse(link);
     link=Reverse_Recursion(&link);
+	//ListTraverse(link);
+	std::cin >> num;
+	}
 
 	system("pause");
 	return 0;
