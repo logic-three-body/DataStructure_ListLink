@@ -32,9 +32,12 @@ void CreateListTail(LinkList *L, int n)
 Status ListTraverse(LinkList& L)
 {
 	LinkList p = L->next;
+	std::cout << (p->data) ;
+	p = p->next;
 	while (p)
 	{
-		std::cout << (p->data) << " ";
+		std::cout<<" ";
+		std::cout << (p->data) ;
 		p = p->next;
 	}
 	printf("\n");
