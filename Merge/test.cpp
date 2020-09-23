@@ -90,6 +90,7 @@ int main()
 		CreateListTail(&listB, num2);
 		Merge(listA, listB, listC);
 		ListTraverse(listC);
+		std::cin >> num1 >> num2;
 	}
 	system("pause");
 	return 0;
