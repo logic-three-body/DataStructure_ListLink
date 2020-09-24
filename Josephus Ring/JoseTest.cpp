@@ -15,7 +15,8 @@ public:
 	RLNode():next(nullptr) {};
 	RLNode(ElemType a) :data(a), next(nullptr) {};
 	Status CreateRingLink(int,RLNode*&);
-	Status JoseRing(int, RLNode*&);
+	Status JoseRing(RLNode*&);
+	Status DeleteSingleNode(RLNode*&, RLNode*&);
 }*RLink, //头指针
 RLNode,
 *Tail;//尾指针
@@ -29,15 +30,14 @@ int main()
 	RLink rlist=new RLNode;
 	Tail tail_ptr = nullptr;
 	rlist->CreateRingLink(num,tail_ptr); 
-	int kill_someone = 3;
-	rlist->JoseRing(kill_someone, tail_ptr);
+	rlist->JoseRing(tail_ptr);
 	std::cout << "输入元素个数" << std::endl;
 	std::cin >> num;
 	}
 	system("pause");
 	return 0;
 }
-Status RLNode::CreateRingLink(int num,Tail&t)
+Status RLNode::CreateRingLink(int num, RLNode*& t)
 {	
 	//L = new(RLNode);	
 	//L->next = new(RLNode(1));
@@ -64,12 +64,60 @@ Status RLNode::CreateRingLink(int num,Tail&t)
 	return OK;
 }
 
-Status RLNode::JoseRing(int killed, Tail& t)
+Status RLNode::JoseRing(RLNode*& tail)
 {
-	if (killed<=0)
+	int killed = 3;//第三号被杀
+	int counter = 1;//计数器
+
+	RLink p = nullptr,
+	    pre = nullptr;
+	p = this->next;//指向首元节点
+	pre = this;//pre保持在p前
+
+	while (this->next==tail)//只剩守元节点(中止条件)
+	{
+	//找出三号人物
+		if (counter==killed)
+		{
+			//杀死他
+			DeleteSingleNode(pre,p);
+			counter = 1;//重新计数
+			continue;
+		}
+//TODO:解决tail地址的更改问题
+//TODO:解决Delete函数中P指向头节点的问题
+	
+
+
+	//遍历
+		if (p==tail)//如果已经到末尾
+		{
+			p = tail->next->next; //指向首元节点
+			pre = tail->next;//pre保持在p前
+		}
+		else
+		{
+		p = p->next;
+		pre = pre->next;
+		}
+		++counter;//继续报数
+	}
+
+
+
+	return OK;
+}
+
+Status RLNode::DeleteSingleNode(RLNode *&Pre, RLNode *&Now)
+{
+	RLink Tmp = nullptr;//协助删除节点释放空间
+	if (!Pre||!Now)
 	{
 		return ERROR;
 	}
-
+	Tmp = Now->next;//保存此节点next节点地址（为了最后返回给Now）
+	Pre->next = Tmp;
+	delete Now;
+	Now = Tmp;
 	return OK;
 }
