@@ -23,6 +23,8 @@ RLNode,
 int main()
 {
 	int num = 0;
+
+
 	std::cout << "输入元素个数" << std::endl;
 	std::cin >> num;
 	while (std::cin)
@@ -68,6 +70,15 @@ Status RLNode::JoseRing(RLNode*& tail)
 {
 	int killed = 3;//第三号被杀
 	int counter = 1;//计数器
+
+
+	//剧情版：
+	int length = 41;
+	int Youtai[41];
+	for (int i = 0; i < length; i++)
+	{
+		Youtai[0] = i + 1;
+	}
 
 	RLink p = nullptr,
 	    pre = nullptr;
