@@ -14,7 +14,7 @@ private:
 public:
 	RLNode():next(nullptr) {};
 	RLNode(ElemType a) :data(a), next(nullptr) {};
-	Status CreateRingLink(int,RLNode*&);
+	Status CreateRingLink(int,RLNode*&,int *);
 	Status JoseRing(RLNode*&);
 	Status DeleteSingleNode(RLNode*&, RLNode*&, RLNode*& );
 }*RLink, //头指针
@@ -22,24 +22,28 @@ RLNode,
 *Tail;//尾指针
 int main()
 {
-	int num = 0;
 
-
-	std::cout << "输入元素个数" << std::endl;
-	std::cin >> num;
-	while (std::cin)
+	//剧情版：
+	int length = 41;
+	int Youtai[41];
+	for (int i = 0; i < length; i++)
 	{
+		Youtai[i] = i + 1;
+	}
+
+
+	
 	RLink rlist=new RLNode;
 	Tail tail_ptr = nullptr;
-	rlist->CreateRingLink(num,tail_ptr); 
+	rlist->CreateRingLink(length,tail_ptr,Youtai); 
 	rlist->JoseRing(tail_ptr);
-	std::cout << "输入元素个数" << std::endl;
-	std::cin >> num;
-	}
+
+
+
 	system("pause");
 	return 0;
 }
-Status RLNode::CreateRingLink(int num, RLNode*& t)
+Status RLNode::CreateRingLink(int num, RLNode*& t,int *Youptr)
 {	
 	//L = new(RLNode);	
 	//L->next = new(RLNode(1));
@@ -55,7 +59,7 @@ Status RLNode::CreateRingLink(int num, RLNode*& t)
 
 	for (int i = 0; i < num; i++)
 	{
-		std::cin>>elem;
+		elem = Youptr[i];
 		p = new RLNode(elem);
 		p->next = r->next;
 		r->next = p;
@@ -72,13 +76,7 @@ Status RLNode::JoseRing(RLNode*& tail)
 	int counter = 1;//计数器
 
 
-	//剧情版：
-	int length = 41;
-	int Youtai[41];
-	for (int i = 0; i < length; i++)
-	{
-		Youtai[0] = i + 1;
-	}
+
 
 	RLink p = nullptr,
 	    pre = nullptr;
@@ -115,7 +113,7 @@ Status RLNode::JoseRing(RLNode*& tail)
 		++counter;//继续报数
 	}
 
-	
+	std::cout << "存活者：Number " << tail->data<<std::endl;
 
 	return OK;
 }

@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Search Reverse sort K node"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Josephus Ring", "Josephus Ring\Josephus Ring.vcxproj", "{FDADBE8C-F0A5-4946-A9CF-4CB0DB22A29D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JosePhus Ring From ZhiHU", "JosePhus Ring From ZhiHU\JosePhus Ring From ZhiHU.vcxproj", "{177D0B8F-408A-4BC5-AA03-F35293D6D957}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -141,6 +143,14 @@ Global
 		{FDADBE8C-F0A5-4946-A9CF-4CB0DB22A29D}.Release|x64.Build.0 = Release|x64
 		{FDADBE8C-F0A5-4946-A9CF-4CB0DB22A29D}.Release|x86.ActiveCfg = Release|Win32
 		{FDADBE8C-F0A5-4946-A9CF-4CB0DB22A29D}.Release|x86.Build.0 = Release|Win32
+		{177D0B8F-408A-4BC5-AA03-F35293D6D957}.Debug|x64.ActiveCfg = Debug|x64
+		{177D0B8F-408A-4BC5-AA03-F35293D6D957}.Debug|x64.Build.0 = Debug|x64
+		{177D0B8F-408A-4BC5-AA03-F35293D6D957}.Debug|x86.ActiveCfg = Debug|Win32
+		{177D0B8F-408A-4BC5-AA03-F35293D6D957}.Debug|x86.Build.0 = Debug|Win32
+		{177D0B8F-408A-4BC5-AA03-F35293D6D957}.Release|x64.ActiveCfg = Release|x64
+		{177D0B8F-408A-4BC5-AA03-F35293D6D957}.Release|x64.Build.0 = Release|x64
+		{177D0B8F-408A-4BC5-AA03-F35293D6D957}.Release|x86.ActiveCfg = Release|Win32
+		{177D0B8F-408A-4BC5-AA03-F35293D6D957}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
