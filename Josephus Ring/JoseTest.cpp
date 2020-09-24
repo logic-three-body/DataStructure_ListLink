@@ -16,7 +16,7 @@ public:
 	RLNode(ElemType a) :data(a), next(nullptr) {};
 	Status CreateRingLink(int,RLNode*&);
 	Status JoseRing(RLNode*&);
-	Status DeleteSingleNode(RLNode*&, RLNode*&);
+	Status DeleteSingleNode(RLNode*&, RLNode*&, RLNode*& );
 }*RLink, //头指针
 RLNode,
 *Tail;//尾指针
@@ -74,17 +74,18 @@ Status RLNode::JoseRing(RLNode*& tail)
 	p = this->next;//指向首元节点
 	pre = this;//pre保持在p前
 
-	while (this->next==tail)//只剩守元节点(中止条件)
+	while (this->next!=tail)//只剩守元节点(中止条件)
 	{
 	//找出三号人物
 		if (counter==killed)
 		{
+			std::cout << "Kills Number " << p->data << std::endl;
 			//杀死他
-			DeleteSingleNode(pre,p);
+			DeleteSingleNode(pre,p,tail);
 			counter = 1;//重新计数
 			continue;
 		}
-//TODO:解决tail地址的更改问题
+
 //TODO:解决Delete函数中P指向头节点的问题
 	
 
@@ -103,12 +104,12 @@ Status RLNode::JoseRing(RLNode*& tail)
 		++counter;//继续报数
 	}
 
-
+	
 
 	return OK;
 }
 
-Status RLNode::DeleteSingleNode(RLNode *&Pre, RLNode *&Now)
+Status RLNode::DeleteSingleNode(RLNode *&Pre, RLNode *&Now, RLNode*& Tail_Ptr)
 {
 	RLink Tmp = nullptr;//协助删除节点释放空间
 	if (!Pre||!Now)
@@ -116,8 +117,20 @@ Status RLNode::DeleteSingleNode(RLNode *&Pre, RLNode *&Now)
 		return ERROR;
 	}
 	Tmp = Now->next;//保存此节点next节点地址（为了最后返回给Now）
+	if (Now==Tail_Ptr)
+	{
+	 Tail_Ptr = Pre;//尾指针前移
+	}
 	Pre->next = Tmp;
 	delete Now;
-	Now = Tmp;
+	if (Pre==Tail_Ptr)//解决Delete函数中P指向头节点的问题
+	{
+		Now = Pre->next->next;
+	}
+	else
+	{
+	Now = Pre->next;
+	}
+
 	return OK;
 }
