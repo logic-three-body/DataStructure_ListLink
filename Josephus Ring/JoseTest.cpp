@@ -28,7 +28,7 @@ int main()
 	int Youtai[41];
 	for (int i = 0; i < length; i++)
 	{
-		Youtai[i] = i + 1;
+		Youtai[i] = i+1;
 	}
 
 
@@ -135,6 +135,7 @@ Status RLNode::DeleteSingleNode(RLNode *&Pre, RLNode *&Now, RLNode*& Tail_Ptr)
 	if (Pre==Tail_Ptr)//解决Delete函数中P指向头节点的问题
 	{
 		Now = Pre->next->next;
+		Pre = Pre->next;//TODO:Is it correct?  Yes!
 	}
 	else
 	{

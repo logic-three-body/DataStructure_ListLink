@@ -33,6 +33,8 @@ int main()
 	RLink rlist = new RLNode;
 	Tail tail_ptr = nullptr;
 	rlist->CreateRingLink(length, tail_ptr, Youtai);
+
+
 }
 
 
