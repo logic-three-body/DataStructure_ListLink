@@ -67,6 +67,10 @@ void CreateListTail(DLinkList *L, int n)
 
 void ToExchange(DLinkList&L,int num)
 {
+	if (num==0||num==1)
+	{
+		return;
+	}
 	DLinkList now=L->next;
 	int i = 0;
 	now = L;

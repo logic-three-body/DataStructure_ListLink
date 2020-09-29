@@ -6,17 +6,22 @@
 #define FALSE 0
 typedef int Status;          /* Status是函数的类型,其值是函数结果状态代码，如OK等 */
 typedef int ElemType;        /* ElemType类型根据实际情况而定，这里假设为int */
+
+constexpr int length = 41;
+constexpr int killed = 3;//第三号被杀
 typedef struct RLNode
 {
 private:
 	Status data;
 	RLNode *next;
+
+	Status DeleteSingleNode(RLNode*&, RLNode*&, RLNode*&);//删除节点，杀人
 public:
 	RLNode():next(nullptr) {};
 	RLNode(ElemType a) :data(a), next(nullptr) {};
 	Status CreateRingLink(int,RLNode*&,int *);
 	Status JoseRing(RLNode*&);
-	Status DeleteSingleNode(RLNode*&, RLNode*&, RLNode*& );
+
 }*RLink, //头指针
 RLNode,
 *Tail;//尾指针
@@ -24,8 +29,8 @@ int main()
 {
 
 	//剧情版：
-	int length = 41;
-	int Youtai[41];
+	
+	int Youtai[length];
 	for (int i = 0; i < length; i++)
 	{
 		Youtai[i] = i+1;
@@ -43,7 +48,7 @@ int main()
 	system("pause");
 	return 0;
 }
-Status RLNode::CreateRingLink(int num, RLNode*& t,int *Youptr)
+Status RLNode::CreateRingLink(int num, RLNode*& tail,int *Youptr)
 {	
 	//L = new(RLNode);	
 	//L->next = new(RLNode(1));
@@ -52,7 +57,7 @@ Status RLNode::CreateRingLink(int num, RLNode*& t,int *Youptr)
 	{
 		return ERROR;
 	}
-
+	this->data = num;//头节点数据域记录节点数量
 	int elem = 0;
 	RLink p = nullptr;//尾插法实现循环链表
 	RLink r = this;
@@ -65,14 +70,14 @@ Status RLNode::CreateRingLink(int num, RLNode*& t,int *Youptr)
 		r->next = p;
 		r = p;
 	}
-	t = r;
+	tail = r;
 	r->next = this;
 	return OK;
 }
 
 Status RLNode::JoseRing(RLNode*& tail)
 {
-	int killed = 3;//第三号被杀
+	
 	int counter = 1;//计数器
 
 
