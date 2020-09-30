@@ -29,6 +29,7 @@ public:
 	Status Library_OutPut();
 	Status GetLibrary_Len() { return len; };
 	double PriceTag() { return book_price; }
+	std::string NamTag() { return book_name; }
 	Linear_Library(const Linear_Library&);//拷贝构造函数
 	Status FixPrice(double);
 }*Lib_conductor;
@@ -42,6 +43,10 @@ void Inverse(Lib_conductor L);
 
 //找最贵图书
 void MostExpensive(Lib_conductor L);
+
+//找喜爱的书
+void FindBook(Lib_conductor L,int n);
+
 
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
@@ -74,8 +79,9 @@ int main()
 		}
 
 	}
-
-	MostExpensive(conductor);
+	int like_num;
+	std::cin >> like_num;
+	FindBook(conductor,like_num);
 	//for (int i = 0; i < conductor->GetLibrary_Len(); i++)
 	//{
 	//	conductor[i].Library_OutPut();
@@ -135,6 +141,54 @@ void MostExpensive(Lib_conductor L)
 		L[i].Library_OutPut();
 	}
 
+}
+
+void FindBook(Lib_conductor L,int n)
+{
+	if (n==0)
+	{
+		return;
+	}
+	int count=0;//记录书数量
+	int length = L->GetLibrary_Len();
+	std::string* my_book=new std::string[n];
+
+	int *flag=new int[length];//记录原数组下标
+
+	for (int i = 0; i < n; i++)
+	{
+		std::cin >> my_book[i];
+	}
+
+
+	for (int i = 0, k = 0; i < n; i++)
+	{
+		for (int j = 0; j < length; j++)
+		{
+			if (L[j].NamTag() == my_book[i])
+			{
+				++count;
+				flag[k] = j;//记录下标
+				++k;
+			}
+		}
+		if (0==count)
+		{
+			std::cout << "Sorry，there is no your favourite!" << std::endl;
+		}
+		else
+		{
+			std::cout << count << std::endl;
+			for (int t = 0; t < count; t++)
+			{
+				L[flag[t]].Library_OutPut();
+			}
+		}
+	}
+
+	delete[] my_book;
+
+	delete[] flag;
 }
 
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
