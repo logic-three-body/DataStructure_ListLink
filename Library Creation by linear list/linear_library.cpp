@@ -52,6 +52,12 @@ void FindBook(Lib_conductor L,int n);
 /* 操作结果：用e返回L中第i个数据元素的值,注意i是指位置，第1个位置的数组是从0开始 */
 Status GetElem(Lib_conductor L,int num);
 
+//插入
+/* 初始条件：顺序线性表L已存在,1≤i≤ListLength(L)， */
+/* 操作结果：在L中第i个位置之前插入新的数据元素e，L的长度加1 */
+Status ListInsert(Lib_conductor L, int i);//i为线性表位置
+
+
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
 void MergePass(Lib_conductor SR, Lib_conductor TR, int s, int n);
@@ -65,7 +71,7 @@ int main()
 {
 	int number;
 	std::cin >> number;
-	Lib_conductor conductor = new Linear_Library[number];
+	Lib_conductor conductor = new Linear_Library[MAXSIZE];
 	for (int i = 0; i < number; i++)
 	{
 		std::string Book_name;
@@ -83,13 +89,22 @@ int main()
 		}
 
 	}
-	int Search_num = 0;
-	std::cin>> Search_num;
-	GetElem(conductor, Search_num);
-	//for (int i = 0; i < conductor->GetLibrary_Len(); i++)
-	//{
-	//	conductor[i].Library_OutPut();
-	//}
+
+
+	int Insert_index = 0;
+	std::cin >> Insert_index;
+	if (ListInsert(conductor, Insert_index))
+	{
+		for (int i = 0; i < conductor->GetLibrary_Len(); i++)
+		{
+			conductor[i].Library_OutPut();
+		}
+	}
+	else
+	{
+		std::cout << "Sorry，the position to be inserted is invalid!" << std::endl;
+	}
+
 
 	//system("pause");
 	return 0;
@@ -215,6 +230,30 @@ Status GetElem(Lib_conductor L, int num)
 			L[search_index - 1].Library_OutPut();
 		}
 	}
+
+	return OK;
+}
+
+Status ListInsert(Lib_conductor L, int i)
+{
+	int k;
+	int length = L->GetLibrary_Len();
+	if (length == MAXSIZE)  /* 顺序线性表已经满 */
+		return ERROR;
+	if (i<1 || i>length + 1)/* 当i比第一位置小或者比最后一位置后一位置还要大时 */
+		return ERROR;
+
+	if (i <=length)        /* 若插入数据位置不在表尾 */
+	{
+		for (k = length - 1; k >= i - 1; k--)  /* 将要插入位置之后的数据元素向后移动一位 */ //此时k对应的是数组下标
+			L[k + 1] = L[k];
+	}
+	std::string Book_name;
+	std::string Book_number;
+	double Book_price;
+	std::cin >> Book_number;
+	std::cin >> Book_name >> Book_price;//TODO::输入顺序错误
+	L[i - 1].Library_Insert(Book_name, Book_number, Book_price);
 
 	return OK;
 }
