@@ -34,7 +34,11 @@ public:
 }*Lib_conductor;
 int Linear_Library::len = 0;
 
+//取平均值
 float GetAverage(Lib_conductor L);
+
+//逆序
+void Inverse(Lib_conductor L);
 
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
@@ -47,8 +51,10 @@ void BubbleSort(Lib_conductor L);
 void BubbleSort0(Lib_conductor L);
 int main()
 {
-	Lib_conductor conductor = new Linear_Library[MAXSIZE];
-	for (int i = 0; i < MAXSIZE; i++)
+	int number;
+	std::cin >> number;
+	Lib_conductor conductor = new Linear_Library[number];
+	for (int i = 0; i < number; i++)
 	{
 		std::string Book_name;
 		std::string Book_number;
@@ -65,14 +71,11 @@ int main()
 		}
 
 	}
-	//BubbleSort0(conductor);
-	float averge=GetAverage(conductor);
 
+	Inverse(conductor);
 
-	std::cout << std::fixed << std::setprecision(2) << averge<<std::endl;
 	for (int i = 0; i < conductor->GetLibrary_Len(); i++)
 	{
-		conductor[i].FixPrice(averge);
 		conductor[i].Library_OutPut();
 	}
 
@@ -89,6 +92,18 @@ float GetAverage(Lib_conductor L)
 		sum += L[i].PriceTag();
 	}
 	return sum / length ;
+}
+
+void Inverse(Lib_conductor L)
+{
+	int length = L->GetLibrary_Len();
+	for (int i = 0; i < (length+1)/2; i++)
+	{
+		Linear_Library Tmp;
+		Tmp = L[i];
+		L[i] = L[length - i - 1];
+		L[length - i - 1] = Tmp;
+	}
 }
 
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
