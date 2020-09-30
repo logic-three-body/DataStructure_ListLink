@@ -59,7 +59,7 @@ int main()
 	}
 	MergeSort(conductor);
 
-	for (int i = 1; i<conductor->GetLibrary_Len(); i++)
+	for (int i = 1; i<=conductor->GetLibrary_Len(); i++)
 	{
 		conductor[i].Library_OutPut();
 	}
@@ -73,7 +73,7 @@ void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
 	int j, k, l;
 	for (j = m + 1, k = i; i <= m && j <= n; k++)	/* 将SR中记录由小到大地并入TR */
 	{
-		if (SR[i].PriceTag() < SR[j].PriceTag())
+		if (SR[i].PriceTag() >= SR[j].PriceTag())
 			TR[k] = SR[i++];//TODO 拷贝函数靠谱
 		else
 			TR[k] = SR[j++];
@@ -111,7 +111,7 @@ void MergePass(Lib_conductor SR, Lib_conductor TR, int s, int n)
 /* 对顺序表L作归并非递归排序 */
 void MergeSort(Lib_conductor L)
 {
-	Lib_conductor TR = new Linear_Library[L->GetLibrary_Len()];/* 申请额外空间 */
+	Lib_conductor TR = new Linear_Library[L->GetLibrary_Len()+1];/* 申请额外空间 */ //Soulution :"L->GetLibrary_Len()"->"L->GetLibrary_Len()+1"
 	int k = 1;
 	while (k < L->GetLibrary_Len())
 	{
