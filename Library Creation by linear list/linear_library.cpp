@@ -20,18 +20,18 @@ private:
 public:
 	Linear_Library() {};
 	Linear_Library(const std::string &nam,
-				   const std::string&num,
-				   const double&pric):
-									book_name(nam), 
-									book_number(num), 
-									book_price(pric){};
+		const std::string&num,
+		const double&pric) :
+		book_name(nam),
+		book_number(num),
+		book_price(pric) {};
 	Status Library_Insert(const std::string &nam, const std::string&num, const double&pric);
 	Status Library_OutPut();
-    Status GetLibrary_Len() { return len; };
+	Status GetLibrary_Len() { return len; };
 	double PriceTag() { return book_price; }
 	Linear_Library(const Linear_Library&);//拷贝构造函数
 }*Lib_conductor;
-int Linear_Library::len=0;
+int Linear_Library::len = 0;
 
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
@@ -40,26 +40,26 @@ void MergeSort(Lib_conductor L);
 int main()
 {
 	Lib_conductor conductor = new Linear_Library[MAXSIZE];
-	for (int i = 1; i < MAXSIZE; i++)
+	for (int i = 0; i < MAXSIZE; i++)
 	{
 		std::string Book_name;
 		std::string Book_number;
 		double Book_price;
 		std::cin >> Book_number;
-		std::cin>> Book_name >> Book_price;//TODO::输入顺序错误
-		if (Book_name=="0"&&Book_number=="0"&&Book_price==0)
+		std::cin >> Book_name >> Book_price;//TODO::输入顺序错误
+		if (Book_name == "0"&&Book_number == "0"&&Book_price == 0)
 		{
 			break;
 		}
 		else
 		{
-		conductor[i].Library_Insert(Book_name, Book_number, Book_price);
+			conductor[i].Library_Insert(Book_name, Book_number, Book_price);
 		}
 
 	}
 	MergeSort(conductor);
 
-	for (int i = 1; i<=conductor->GetLibrary_Len(); i++)
+	for (int i = 0; i <= conductor->GetLibrary_Len(); i++)
 	{
 		conductor[i].Library_OutPut();
 	}
@@ -94,7 +94,7 @@ void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
 /* 将SR[]中相邻长度为s的子序列两两归并到TR[] */
 void MergePass(Lib_conductor SR, Lib_conductor TR, int s, int n)
 {
-	int i = 1;
+	int i = 0;
 	int j;
 	while (i <= n - 2 * s + 1)
 	{/* 两两归并 */
@@ -111,13 +111,13 @@ void MergePass(Lib_conductor SR, Lib_conductor TR, int s, int n)
 /* 对顺序表L作归并非递归排序 */
 void MergeSort(Lib_conductor L)
 {
-	Lib_conductor TR = new Linear_Library[L->GetLibrary_Len()+1];/* 申请额外空间 */ //Soulution :"L->GetLibrary_Len()"->"L->GetLibrary_Len()+1"
+	Lib_conductor TR = new Linear_Library[L->GetLibrary_Len()];/* 申请额外空间 */ //Soulution :"L->GetLibrary_Len()"->"L->GetLibrary_Len()+1"
 	int k = 1;
-	while (k < L->GetLibrary_Len())
+	while (k - 1 < L->GetLibrary_Len())
 	{
-		MergePass(L, TR, k, L->GetLibrary_Len());
+		MergePass(L, TR, k, L->GetLibrary_Len() - 1);
 		k = 2 * k;/* 子序列长度加倍 */
-		MergePass(TR, L, k, L->GetLibrary_Len());
+		MergePass(TR, L, k, L->GetLibrary_Len() - 1);
 		k = 2 * k;/* 子序列长度加倍 */
 	}
 }
@@ -133,7 +133,7 @@ Status Linear_Library::Library_Insert(const std::string &nam, const std::string&
 
 Status Linear_Library::Library_OutPut()
 {
-	std::cout<<std::fixed <<std::setprecision(2) << book_number << " " << book_name << " " << book_price<<std::endl;
+	std::cout << std::fixed << std::setprecision(2) << book_number << " " << book_name << " " << book_price << std::endl;
 	return OK;
 }
 
