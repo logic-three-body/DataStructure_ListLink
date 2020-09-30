@@ -47,6 +47,10 @@ void MostExpensive(Lib_conductor L);
 //找喜爱的书
 void FindBook(Lib_conductor L,int n);
 
+//找位置
+/* 初始条件：顺序线性表L已存在，1≤i≤ListLength(L) */
+/* 操作结果：用e返回L中第i个数据元素的值,注意i是指位置，第1个位置的数组是从0开始 */
+Status GetElem(Lib_conductor L,int num);
 
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
@@ -79,9 +83,9 @@ int main()
 		}
 
 	}
-	int like_num;
-	std::cin >> like_num;
-	FindBook(conductor,like_num);
+	int Search_num = 0;
+	std::cin>> Search_num;
+	GetElem(conductor, Search_num);
 	//for (int i = 0; i < conductor->GetLibrary_Len(); i++)
 	//{
 	//	conductor[i].Library_OutPut();
@@ -189,6 +193,30 @@ void FindBook(Lib_conductor L,int n)
 	delete[] my_book;
 
 	delete[] flag;
+}
+
+Status GetElem(Lib_conductor L, int num)
+{
+	int len = L->GetLibrary_Len();
+	if (len==0)
+	{
+		return ERROR;
+	}
+	for (int t = 0; t < num; t++)
+	{
+		int search_index = 0;//
+		std::cin >> search_index;
+		if (search_index<1 || search_index>len)
+		{
+			std::cout << "Sorry，the book on the best position doesn't exist!" << std::endl;
+		}
+		else
+		{
+			L[search_index - 1].Library_OutPut();
+		}
+	}
+
+	return OK;
 }
 
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
