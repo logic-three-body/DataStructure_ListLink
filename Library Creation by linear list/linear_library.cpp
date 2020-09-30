@@ -30,6 +30,7 @@ public:
 	Status GetLibrary_Len() { return len; };
 	double PriceTag() { return book_price; }
 	std::string NamTag() { return book_name; }
+	std::string NumTag() { return book_number; }
 	Linear_Library(const Linear_Library&);//拷贝构造函数
 	Status FixPrice(double);
 	void Decrease_Num() { --len; };
@@ -77,6 +78,10 @@ Status ListDelete(Lib_conductor L, int i)
 	L->Decrease_Num();
 	return OK;
 }
+
+//去重
+void GetRid_Repeat(Lib_conductor L);
+
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
 void MergePass(Lib_conductor SR, Lib_conductor TR, int s, int n);
@@ -109,20 +114,16 @@ int main()
 
 	}
 
+	GetRid_Repeat(conductor);
 
-	int Dele_index = 0;
-	std::cin >> Dele_index;
-	if (ListDelete(conductor, Dele_index))
+
+	std::cout << conductor->GetLibrary_Len() << std::endl;
+	for (int i = 0; i < conductor->GetLibrary_Len(); i++)
 	{
-		for (int i = 0; i < conductor->GetLibrary_Len(); i++)
-		{
-			conductor[i].Library_OutPut();
-		}
+		conductor[i].Library_OutPut();
 	}
-	else
-	{
-		std::cout << "Sorry，the position to be deleted is invalid!" << std::endl;
-	}
+
+
 
 
 	//system("pause");
@@ -275,6 +276,23 @@ Status ListInsert(Lib_conductor L, int i)
 	L[i - 1].Library_Insert(Book_name, Book_number, Book_price);
 
 	return OK;
+}
+
+void GetRid_Repeat(Lib_conductor L)
+{
+	//int length = L->GetLibrary_Len();
+	//MergeSort(L);
+	for (int i = 0; i < L->GetLibrary_Len(); i++)
+	{
+		for (int j = 0; j < L->GetLibrary_Len(); j++)
+		{
+			if (L[i].NumTag() == L[j].NumTag())
+			{
+				ListDelete(L, j+1);
+			}
+		}
+	}
+
 }
 
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
