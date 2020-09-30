@@ -40,6 +40,9 @@ float GetAverage(Lib_conductor L);
 //逆序
 void Inverse(Lib_conductor L);
 
+//找最贵图书
+void MostExpensive(Lib_conductor L);
+
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
 void MergePass(Lib_conductor SR, Lib_conductor TR, int s, int n);
@@ -72,12 +75,11 @@ int main()
 
 	}
 
-	Inverse(conductor);
-
-	for (int i = 0; i < conductor->GetLibrary_Len(); i++)
-	{
-		conductor[i].Library_OutPut();
-	}
+	MostExpensive(conductor);
+	//for (int i = 0; i < conductor->GetLibrary_Len(); i++)
+	//{
+	//	conductor[i].Library_OutPut();
+	//}
 
 	//system("pause");
 	return 0;
@@ -104,6 +106,35 @@ void Inverse(Lib_conductor L)
 		L[i] = L[length - i - 1];
 		L[length - i - 1] = Tmp;
 	}
+}
+
+void MostExpensive(Lib_conductor L)
+{
+	int Expen_num = 0;
+	int length = L->GetLibrary_Len();
+	float Max = 0;
+	MergeSort(L);
+	Max = L[0].PriceTag();//排序后首位最大
+	for (int i = 0; i < length; i++)
+	{
+
+		if (Max > L[i].PriceTag())
+		{
+			break;
+		}
+		else
+		{
+			++Expen_num;
+		}
+	}
+
+	std::cout << Expen_num << std::endl;
+
+	for (int i = 0; i < Expen_num; i++)
+	{
+		L[i].Library_OutPut();
+	}
+
 }
 
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
