@@ -59,7 +59,7 @@ int main()
 	}
 	MergeSort(conductor);
 
-	for (int i = 0; i <= conductor->GetLibrary_Len(); i++)
+	for (int i = 0; i <= conductor->GetLibrary_Len()-1; i++)
 	{
 		conductor[i].Library_OutPut();
 	}
@@ -113,7 +113,7 @@ void MergeSort(Lib_conductor L)
 {
 	Lib_conductor TR = new Linear_Library[L->GetLibrary_Len()];/* 申请额外空间 */ //Soulution :"L->GetLibrary_Len()"->"L->GetLibrary_Len()+1"
 	int k = 1;
-	while (k - 1 < L->GetLibrary_Len())
+	while (k < L->GetLibrary_Len())
 	{
 		MergePass(L, TR, k, L->GetLibrary_Len() - 1);
 		k = 2 * k;/* 子序列长度加倍 */
