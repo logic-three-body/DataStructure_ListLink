@@ -32,6 +32,7 @@ public:
 	std::string NamTag() { return book_name; }
 	Linear_Library(const Linear_Library&);//拷贝构造函数
 	Status FixPrice(double);
+	void Decrease_Num() { --len; };
 }*Lib_conductor;
 int Linear_Library::len = 0;
 
@@ -57,7 +58,25 @@ Status GetElem(Lib_conductor L,int num);
 /* 操作结果：在L中第i个位置之前插入新的数据元素e，L的长度加1 */
 Status ListInsert(Lib_conductor L, int i);//i为线性表位置
 
-
+//删除
+/* 初始条件：顺序线性表L已存在，1≤i≤ListLength(L) */
+/* 操作结果：删除L的第i个数据元素，并用e返回其值，L的长度减1 */
+Status ListDelete(Lib_conductor L, int i)
+{
+	int k;
+	int length = L->GetLibrary_Len();
+	if (length == 0)               /* 线性表为空 */
+		return ERROR;
+	if (i<1 || i>length)         /* 删除位置不正确 */
+		return ERROR;
+	if (i < length)                /* 如果删除不是最后位置 */
+	{
+		for (k = i; k < length; k++)/* 将删除位置后继元素前移 */
+			L[k - 1] = L[k];
+	}
+	L->Decrease_Num();
+	return OK;
+}
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
 void MergePass(Lib_conductor SR, Lib_conductor TR, int s, int n);
@@ -91,9 +110,9 @@ int main()
 	}
 
 
-	int Insert_index = 0;
-	std::cin >> Insert_index;
-	if (ListInsert(conductor, Insert_index))
+	int Dele_index = 0;
+	std::cin >> Dele_index;
+	if (ListDelete(conductor, Dele_index))
 	{
 		for (int i = 0; i < conductor->GetLibrary_Len(); i++)
 		{
@@ -102,7 +121,7 @@ int main()
 	}
 	else
 	{
-		std::cout << "Sorry，the position to be inserted is invalid!" << std::endl;
+		std::cout << "Sorry，the position to be deleted is invalid!" << std::endl;
 	}
 
 
