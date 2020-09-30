@@ -37,6 +37,11 @@ int Linear_Library::len = 0;
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
 void MergePass(Lib_conductor SR, Lib_conductor TR, int s, int n);
 void MergeSort(Lib_conductor L);
+
+/* 交换L中数组r的下标为i和j的值 */
+void swap(Linear_Library& a, Linear_Library&b);
+void BubbleSort(Lib_conductor L);
+void BubbleSort0(Lib_conductor L);
 int main()
 {
 	Lib_conductor conductor = new Linear_Library[MAXSIZE];
@@ -57,9 +62,9 @@ int main()
 		}
 
 	}
-	MergeSort(conductor);
+	BubbleSort0(conductor);
 
-	for (int i = 0; i <= conductor->GetLibrary_Len()-1; i++)
+	for (int i = 0; i < conductor->GetLibrary_Len(); i++)
 	{
 		conductor[i].Library_OutPut();
 	}
@@ -119,6 +124,49 @@ void MergeSort(Lib_conductor L)
 		k = 2 * k;/* 子序列长度加倍 */
 		MergePass(TR, L, k, L->GetLibrary_Len() - 1);
 		k = 2 * k;/* 子序列长度加倍 */
+	}
+}
+
+void swap(Linear_Library& a, Linear_Library&b)
+{
+	Linear_Library temp = a;
+	a = b;
+	b = temp;
+}
+
+/* 对顺序表L作改进冒泡算法 */
+void BubbleSort(Lib_conductor L)
+{
+	int i, j;
+	int length = L->GetLibrary_Len();
+	Status flag = TRUE;			/* flag用来作为标记 */
+	for (i = 0; i < length && flag; i++) /* 若flag为true说明有过数据交换，否则停止循环 */
+	{
+		flag = FALSE;				/* 初始为False */
+		for (j = length - 1; j >= i; j--)
+		{
+			if (L[j].PriceTag() < L[j + 1].PriceTag())
+			{
+				swap(L[j], L[j + 1]);	/* 交换L->r[j]与L->r[j+1]的值 */
+				flag = TRUE;		/* 如果有数据交换，则flag为true */
+			}
+		}
+	}
+}
+
+void BubbleSort0(Lib_conductor L)
+{
+	int i, j;
+	int length = L->GetLibrary_Len();
+	for (i = 0; i < length; i++)
+	{
+		for (j = i + 1; j <= length; j++)
+		{
+			if (L[i].PriceTag() < L[j].PriceTag())
+			{
+				swap(L[i], L[j]);/* 交换L->r[i]与L->r[j]的值 */
+			}
+		}
 	}
 }
 
