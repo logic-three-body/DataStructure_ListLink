@@ -15,7 +15,7 @@ typedef struct Linear_Library
 private:
 	std::string book_name;
 	std::string book_number;
-	double book_price;
+	float book_price;
 	static int len;
 public:
 	Linear_Library() {};
@@ -30,8 +30,11 @@ public:
 	Status GetLibrary_Len() { return len; };
 	double PriceTag() { return book_price; }
 	Linear_Library(const Linear_Library&);//拷贝构造函数
+	Status FixPrice(double);
 }*Lib_conductor;
 int Linear_Library::len = 0;
+
+float GetAverage(Lib_conductor L);
 
 //sorting
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n);
@@ -62,15 +65,30 @@ int main()
 		}
 
 	}
-	BubbleSort0(conductor);
+	//BubbleSort0(conductor);
+	float averge=GetAverage(conductor);
 
+
+	std::cout << std::fixed << std::setprecision(2) << averge<<std::endl;
 	for (int i = 0; i < conductor->GetLibrary_Len(); i++)
 	{
+		conductor[i].FixPrice(averge);
 		conductor[i].Library_OutPut();
 	}
 
-	system("pause");
+	//system("pause");
 	return 0;
+}
+
+float GetAverage(Lib_conductor L)
+{
+	int length = L->GetLibrary_Len();
+	float sum=0;
+	for (int i = 0; i < length; i++)
+	{
+		sum += L[i].PriceTag();
+	}
+	return sum / length ;
 }
 
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
@@ -160,11 +178,11 @@ void BubbleSort0(Lib_conductor L)
 	int length = L->GetLibrary_Len();
 	for (i = 0; i < length; i++)
 	{
-		for (j = i + 1; j <= length; j++)
+		for (j = 0; j < length - 1; j++)
 		{
-			if (L[i].PriceTag() < L[j].PriceTag())
+			if (L[j].PriceTag() < L[j+1].PriceTag())
 			{
-				swap(L[i], L[j]);/* 交换L->r[i]与L->r[j]的值 */
+				swap(L[j], L[j+1]);/* 交换L->r[i]与L->r[j]的值 */
 			}
 		}
 	}
@@ -190,4 +208,17 @@ Linear_Library::Linear_Library(const Linear_Library &L)
 	book_name = L.book_name;
 	book_number = L.book_number;
 	book_price = L.book_price;
+}
+
+Status Linear_Library::FixPrice(double aver)
+{
+	if (book_price<aver)
+	{
+		book_price *= 1.2;
+	}
+	else 
+	{
+		book_price *= 1.1;
+	}
+	return OK;
 }
