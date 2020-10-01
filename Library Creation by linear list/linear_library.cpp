@@ -280,19 +280,29 @@ Status ListInsert(Lib_conductor L, int i)
 
 void GetRid_Repeat(Lib_conductor L)
 {
-	//int length = L->GetLibrary_Len();
+	int length = L->GetLibrary_Len();
 	//MergeSort(L);
-	for (int i = 0; i < L->GetLibrary_Len(); i++)
+
+	int* pos=new int[length - 1];
+	int sum = 0;//重复的数量
+	for (int i = 0; i < length-1; i++)
 	{
-		for (int j = 0; j < L->GetLibrary_Len(); j++)
+		for (int j = i+1; j < length; j++)
 		{
-			if (L[i].NumTag() == L[j].NumTag())
+			if (L[i].NumTag()==L[j].NumTag())
 			{
-				ListDelete(L, j+1);
+				++sum;
+				pos[sum - 1] = j;//记录重复位置
 			}
 		}
 	}
+	//删除元素
+	for (int i = 0; i < sum; i++)
+	{
+		ListDelete(L, pos[i]);
+	}
 
+	delete[]pos;
 }
 
 void Merge(Lib_conductor SR, Lib_conductor TR, int i, int m, int n)
