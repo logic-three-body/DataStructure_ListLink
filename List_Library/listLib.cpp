@@ -31,8 +31,30 @@ public:
 	void Lib_OutPut();
 	Status GetLibrary_Len() { return len; };
 	void sort();
+	float GetAver();
+	void FixPrice();
 }*Lib_Conductor;
 int List_Lib::len = 0;
+
+
+int main()
+{
+	Lib_Conductor conductor = new List_Lib;
+	Data book;
+	std::cin >> book.book_number >> book.book_name >> book.book_price;
+	while (book.book_number != "0"&&book.book_name != "0"&&book.book_price != 0)
+	{
+		conductor->ListInsert(book);
+		std::cin >> book.book_number >> book.book_name >> book.book_price;
+	}
+	std::cout << std::fixed << std::setprecision(2) << conductor->GetAver() << std::endl;
+	conductor->FixPrice();
+	conductor->Lib_OutPut();
+	return 0;
+}
+
+
+
 
 
 
@@ -92,20 +114,7 @@ void List_Lib::Lib_OutPut()
 	}
 }
 
-int main()
-{
-	Lib_Conductor conductor = new List_Lib;
-	Data book;
-	std::cin >> book.book_number >> book.book_name >> book.book_price;
-	while (book.book_number!="0"&&book.book_name!="0"&&book.book_price!=0)
-	{
-		conductor->ListInsert(book);
-		std::cin >> book.book_number >> book.book_name >> book.book_price;
-	}
-	conductor->sort();
-	conductor->Lib_OutPut();
-	return 0;
-}
+
 
 
 void  List_Lib::sort()
@@ -132,4 +141,39 @@ void  List_Lib::sort()
 		}
 	}
 
+}
+
+float List_Lib::GetAver()
+{
+	int len = this->len;
+	float sum = 0;
+	if (!len)
+	{
+		return ERROR;
+	}
+	Lib_Conductor p = this->next;
+	while (p)
+	{
+		sum += p->Books.book_price;
+		p = p->next;
+	}
+	return sum/len;
+}
+
+void List_Lib::FixPrice()
+{
+	float average = this->GetAver();
+	Lib_Conductor p = this->next;
+	while (p)
+	{
+		if (p->Books.book_price<average)
+		{
+			p->Books.book_price *= 1.2;			
+		}
+		else
+		{
+			p->Books.book_price *= 1.1;
+		}
+		p = p->next;
+	}
 }
