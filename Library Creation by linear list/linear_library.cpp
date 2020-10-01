@@ -158,13 +158,13 @@ void BubbleSort0(Lib_conductor L)
 {
 	int i, j;
 	int length = L->GetLibrary_Len();
-	for (i = 0; i < length; i++)
+	for (i = 0; i < length - 1; i++)
 	{
-		for (j = i + 1; j <= length; j++)
+		for (j = 0; j < length-i-1; j++)
 		{
-			if (L[i].PriceTag() < L[j].PriceTag())
+			if (L[j].PriceTag() < L[j+1].PriceTag())
 			{
-				swap(L[i], L[j]);/* 交换L->r[i]与L->r[j]的值 */
+				swap(L[j], L[j+1]);/* 交换L->r[i]与L->r[j]的值 */
 			}
 		}
 	}
