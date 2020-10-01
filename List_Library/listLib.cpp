@@ -50,7 +50,18 @@ int main()
 	std::cin >> num;
 	conductor->Create_Tail_List(num);
 	//conductor->Lib_OutPut();
-	conductor->SearchBook();
+	int index;
+	std::cin>>index;
+	Data book;
+	std::cin >> book.book_number >> book.book_name >> book.book_price;
+	if (conductor->ListInsert(index, book))
+	{
+		conductor->Lib_OutPut();
+	} 
+	else
+	{
+		std::cout<<"Sorry，the position to be inserted is invalid!" << std::endl;
+	}
 
 	return 0;
 }
@@ -88,6 +99,7 @@ Status List_Lib::ListInsert(int i,const Data&b)
 		return ERROR;
 	}
 	s = new List_Lib(b);
+	s->next = p->next;
 	p->next = s;
 	return OK;
 
