@@ -39,6 +39,7 @@ public:
 	void FindExpen();
 	void FindFav();
 	void SearchBook();
+	Status DeleteBook();
 }*Lib_Conductor;
 int List_Lib::len = 0;
 
@@ -50,17 +51,13 @@ int main()
 	std::cin >> num;
 	conductor->Create_Tail_List(num);
 	//conductor->Lib_OutPut();
-	int index;
-	std::cin>>index;
-	Data book;
-	std::cin >> book.book_number >> book.book_name >> book.book_price;
-	if (conductor->ListInsert(index, book))
+	if (conductor->DeleteBook())
 	{
 		conductor->Lib_OutPut();
 	} 
 	else
 	{
-		std::cout<<"Sorry，the position to be inserted is invalid!" << std::endl;
+		std::cout<<"Sorry，the position to be deleted is invalid!" << std::endl;
 	}
 
 	return 0;
@@ -309,6 +306,27 @@ void List_Lib::SearchBook()
 			std::cout << std::fixed << std::setprecision(2) << book.book_number << " " << book.book_name << " " << book.book_price << std::endl;
 		}
 	}
+}
+
+Status List_Lib::DeleteBook()
+{
+	int i;//删除目标
+	std::cin >> i;
+	int j;
+	Lib_Conductor p, q;
+	p = this;
+	j = 1;
+	while (p->next && j < i)	/* 遍历寻找第i个元素 */
+	{
+		p = p->next;
+		++j;
+	}
+	if (!(p->next) || j > i)
+		return ERROR;           /* 第i个元素不存在 */
+	q = p->next;
+	p->next = q->next;			/* 将q的后继赋值给p的后继 */
+	delete q;                   /* 让系统回收此结点，释放内存 */
+	return OK;
 }
 
 Data List_Lib::GetBook(int i)
