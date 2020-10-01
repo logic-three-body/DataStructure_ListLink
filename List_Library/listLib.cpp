@@ -1,13 +1,13 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<string>
 #include<iomanip>
 #define OK 1
 #define ERROR 0
 #define TRUE 1
 #define FALSE 0
-#define MAXSIZE 20 /* ´æ´¢¿Õ¼ä³õÊ¼·ÖÅäÁ¿ */
+#define MAXSIZE 20 /* å­˜å‚¨ç©ºé—´åˆå§‹åˆ†é…é‡ */
 typedef int Status;
-typedef int QElemType; /* QElemTypeÀàĞÍ¸ù¾İÊµ¼ÊÇé¿ö¶ø¶¨£¬ÕâÀï¼ÙÉèÎªint */
+typedef int QElemType; /* QElemTypeç±»å‹æ ¹æ®å®é™…æƒ…å†µè€Œå®šï¼Œè¿™é‡Œå‡è®¾ä¸ºint */
 struct Data
 {
 	std::string book_name;
@@ -37,6 +37,7 @@ public:
 	float GetAver();
 	void FixPrice();
 	void FindExpen();
+	void FindFav();
 }*Lib_Conductor;
 int List_Lib::len = 0;
 
@@ -48,7 +49,8 @@ int main()
 	std::cin >> num;
 	conductor->Create_Tail_List(num);
 	//conductor->Lib_OutPut();
-	conductor->FindExpen();
+	conductor->FindFav();
+
 	return 0;
 }
 
@@ -75,12 +77,12 @@ Status List_Lib::ListInsert(int i,const Data&b)
 	Lib_Conductor p, s;
 	p = this;
 	j = 1;
-	while (p && j < i)     /* Ñ°ÕÒµÚi¸ö½áµã */
+	while (p && j < i)     /* å¯»æ‰¾ç¬¬iä¸ªç»“ç‚¹ */
 	{
 		p = p->next;
 		++j;
 	}
-	if (!p||j>i)//ÔªËØ²»´æÔÚ£¨i=0£©
+	if (!p||j>i)//å…ƒç´ ä¸å­˜åœ¨ï¼ˆi=0ï¼‰
 	{
 		return ERROR;
 	}
@@ -142,14 +144,14 @@ void  List_Lib::sort()
 {
 
 	int n = this->len;
-	int i; //ÓÃi¼ÇÂ¼ÒÑ¾­±ÈºÃ£¬ÖÃÓÚÄ©Î²µÄÔªËØ 
-	int j;//ÓÃj¼ÇÂ¼ÒÑ±È½ÏµÄÂÖ´Î 
+	int i; //ç”¨iè®°å½•å·²ç»æ¯”å¥½ï¼Œç½®äºæœ«å°¾çš„å…ƒç´  
+	int j;//ç”¨jè®°å½•å·²æ¯”è¾ƒçš„è½®æ¬¡ 
 	Lib_Conductor p=nullptr;
-	for (i = 0; i < n - 1; i++)//n¸öÔªËØÒª±È½Ïn-1ÂÖ 
+	for (i = 0; i < n - 1; i++)//nä¸ªå…ƒç´ è¦æ¯”è¾ƒn-1è½® 
 	{
 		p = this->next;
-		j = 0;//±È½ÏÍêÒ»ÂÖºó£¬j¹éÁã 
-		while (p&&j < n - 1 - i)//ºÍ2ÂÖforÑ­»·µÄ±¾ÖÊÒ»Ñù 
+		j = 0;//æ¯”è¾ƒå®Œä¸€è½®åï¼Œjå½’é›¶ 
+		while (p&&j < n - 1 - i)//å’Œ2è½®forå¾ªç¯çš„æœ¬è´¨ä¸€æ · 
 		{
 			if (p->Books.book_price < p->next->Books.book_price)
 			{
@@ -228,17 +230,65 @@ void List_Lib::FindExpen()
 
 }
 
+void List_Lib::FindFav()
+{
+	int Like_num;
+	std::cin >> Like_num;
+	if (Like_num == 0)
+	{
+		return;
+	}
+	int count = 0; //è®°å½•ä¹¦æ•°é‡
+	int length = GetLibrary_Len();
+	std::string* my_book = new std::string[Like_num];
+	int *flag = new int[length];//è®°å½•åŸé“¾è¡¨ä¸‹æ ‡
+	for (int i = 0; i < Like_num; i++)
+	{
+		std::cin >> my_book[i];
+	}
+	for (int i = 0, k = 0; i < Like_num; i++)
+	{
+		Lib_Conductor p = this->next;
+		for (int j = 0; j < length; j++,p=p->next)
+		{
+			if (p->Books.book_name == my_book[i])
+			{
+				++count;
+				flag[k] = j;//è®°å½•ä¸‹æ ‡
+				++k;
+			}
+		}
+		if (0 == count)
+		{
+			std::cout << "Sorryï¼Œthere is no your favourite!" << std::endl;
+		}
+		else
+		{
+			std::cout << count << std::endl;
+			for (int t = 0; t < count; t++)
+			{
+				Data book=GetBook(flag[t] + 1);
+				std::cout << std::fixed << std::setprecision(2) << book.book_number << " " << book.book_name << " " << book.book_price << std::endl;
+			}
+		}
+	}
+
+
+	delete[] my_book;
+	delete[] flag;
+}
+
 Data List_Lib::GetBook(int i)
 {
 	int j;
-	Lib_Conductor p;		/* ÉùÃ÷Ò»½áµãp */
-	p = this->next;		/* ÈÃpÖ¸ÏòÁ´±íLµÄµÚÒ»¸ö½áµã */
-	j = 1;		/*  jÎª¼ÆÊıÆ÷ */
-	while (p && j < i)  /* p²»Îª¿Õ»òÕß¼ÆÊıÆ÷j»¹Ã»ÓĞµÈÓÚiÊ±£¬Ñ­»·¼ÌĞø */
+	Lib_Conductor p;		/* å£°æ˜ä¸€ç»“ç‚¹p */
+	p = this->next;		/* è®©pæŒ‡å‘é“¾è¡¨Lçš„ç¬¬ä¸€ä¸ªç»“ç‚¹ */
+	j = 1;		/*  jä¸ºè®¡æ•°å™¨ */
+	while (p && j < i)  /* pä¸ä¸ºç©ºæˆ–è€…è®¡æ•°å™¨jè¿˜æ²¡æœ‰ç­‰äºiæ—¶ï¼Œå¾ªç¯ç»§ç»­ */
 	{
-		p = p->next;  /* ÈÃpÖ¸ÏòÏÂÒ»¸ö½áµã */
+		p = p->next;  /* è®©pæŒ‡å‘ä¸‹ä¸€ä¸ªç»“ç‚¹ */
 		++j;
 	}
-	Data book = p->Books;   /*  È¡µÚi¸öÔªËØµÄÊı¾İ */
+	Data book = p->Books;   /*  å–ç¬¬iä¸ªå…ƒç´ çš„æ•°æ® */
 	return book;
 }
