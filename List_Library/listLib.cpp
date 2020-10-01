@@ -30,6 +30,7 @@ public:
 	void Create_Tail_List(int);
 	void Lib_OutPut();
 	Status GetLibrary_Len() { return len; };
+	void sort();
 }*Lib_Conductor;
 int List_Lib::len = 0;
 
@@ -101,7 +102,34 @@ int main()
 		conductor->ListInsert(book);
 		std::cin >> book.book_number >> book.book_name >> book.book_price;
 	}
-	std::cout<< conductor->GetLibrary_Len() << std::endl;
+	conductor->sort();
 	conductor->Lib_OutPut();
 	return 0;
+}
+
+
+void  List_Lib::sort()
+{
+
+	int n = this->len;
+	int i; //用i记录已经比好，置于末尾的元素 
+	int j;//用j记录已比较的轮次 
+	Lib_Conductor p=nullptr;
+	for (i = 0; i < n - 1; i++)//n个元素要比较n-1轮 
+	{
+		p = this->next;
+		j = 0;//比较完一轮后，j归零 
+		while (p&&j < n - 1 - i)//和2轮for循环的本质一样 
+		{
+			if (p->Books.book_price < p->next->Books.book_price)
+			{
+				Data tmp = p->Books;
+				p->Books = p->next->Books;
+				p->next->Books = tmp;
+			}
+			p = p->next;
+			j++;
+		}
+	}
+
 }
