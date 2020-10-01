@@ -89,12 +89,15 @@ Status ListDelete(LinkList *L, int i)
 
 /* 初始条件：顺序线性表L已存在 */
 /* 操作结果：依次对L的每个数据元素输出 */
-Status ListTraverse(LinkList L)
+Status ListTraverse(LinkList& L)
 {
 	LinkList p = L->next;
+	std::cout << (p->data);
+	p = p->next;
 	while (p)
 	{
-		visit(p->data);
+		std::cout << " ";
+		std::cout << p->data;
 		p = p->next;
 	}
 	printf("\n");
