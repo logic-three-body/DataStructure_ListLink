@@ -7,8 +7,8 @@
 typedef int Status;          /* Status是函数的类型,其值是函数结果状态代码，如OK等 */
 typedef int ElemType;        /* ElemType类型根据实际情况而定，这里假设为int */
 
-constexpr int length = 41;
-constexpr int killed = 3;//第三号被杀
+
+//constexpr int killed = 3;//第三号被杀
 typedef struct RLNode
 {
 private:
@@ -20,7 +20,7 @@ public:
 	RLNode():next(nullptr) {};
 	RLNode(ElemType a) :data(a), next(nullptr) {};
 	Status CreateRingLink(int,RLNode*&,int *);
-	Status JoseRing(RLNode*&);
+	Status JoseRing(RLNode*&,int killed);
 
 }*RLink, //头指针
 RLNode,
@@ -29,22 +29,27 @@ int main()
 {
 
 	//剧情版：
-	
-	int Youtai[length];
-	for (int i = 0; i < length; i++)
+	int length = 0;
+	int killed;//杀死的人
+	std::cin >> length >> killed;
+	while (length!=0&&killed!=0)
 	{
-		Youtai[i] = i+1;
+		int* Youtai = new int[length];
+		for (int i = 0; i < length; i++)
+		{
+			Youtai[i] = i + 1;
+		}
+		RLink rlist = new RLNode;
+		Tail tail_ptr = nullptr;
+		rlist->CreateRingLink(length, tail_ptr, Youtai);
+		rlist->JoseRing(tail_ptr, killed);
+		delete[] Youtai;
+		std::cin >> length >> killed;
 	}
 
 
+
 	
-	RLink rlist=new RLNode;
-	Tail tail_ptr = nullptr;
-	rlist->CreateRingLink(length,tail_ptr,Youtai); 
-	rlist->JoseRing(tail_ptr);
-
-
-
 	system("pause");
 	return 0;
 }
@@ -75,7 +80,7 @@ Status RLNode::CreateRingLink(int num, RLNode*& tail,int *Youptr)
 	return OK;
 }
 
-Status RLNode::JoseRing(RLNode*& tail)
+Status RLNode::JoseRing(RLNode*& tail, int killed)
 {
 	
 	int counter = 1;//计数器
@@ -93,7 +98,7 @@ Status RLNode::JoseRing(RLNode*& tail)
 	//找出三号人物
 		if (counter==killed)
 		{
-			std::cout << "Kills Number " << p->data << std::endl;
+			std::cout << p->data << " ";
 			//杀死他
 			DeleteSingleNode(pre,p,tail);
 			counter = 1;//重新计数
@@ -118,7 +123,7 @@ Status RLNode::JoseRing(RLNode*& tail)
 		++counter;//继续报数
 	}
 
-	std::cout << "存活者：Number " << tail->data<<std::endl;
+	std::cout  << tail->data<<std::endl;
 
 	return OK;
 }
