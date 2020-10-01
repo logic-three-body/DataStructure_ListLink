@@ -19,6 +19,7 @@ typedef struct List_Lib
 private:
 	Data Books;
 	static int len;
+	Data GetBook(int);
 public:
 
 	List_Lib *next;
@@ -35,6 +36,7 @@ public:
 	void sort();
 	float GetAver();
 	void FixPrice();
+	void FindExpen();
 }*Lib_Conductor;
 int List_Lib::len = 0;
 
@@ -44,8 +46,9 @@ int main()
 	Lib_Conductor conductor = new List_Lib;
 	int num;
 	std::cin >> num;
-	conductor->Create_Head_List(num);
-	conductor->Lib_OutPut();
+	conductor->Create_Tail_List(num);
+	//conductor->Lib_OutPut();
+	conductor->FindExpen();
 	return 0;
 }
 
@@ -96,8 +99,12 @@ Status List_Lib::ListInsert(const Data &b)
 
 void List_Lib::Create_Tail_List(int n)
 {
-	Lib_Conductor p, r;
-	//头节点存长度
+	Data book;
+	for (int i = 0; i < n; i++)
+	{
+		std::cin >> book.book_number >> book.book_name >> book.book_price;
+		ListInsert(book);
+	}
 }
 
 void List_Lib::Create_Head_List(int n)
@@ -190,4 +197,48 @@ void List_Lib::FixPrice()
 		}
 		p = p->next;
 	}
+}
+
+void List_Lib::FindExpen()
+{
+	int Expen_num = 0;
+	int length = GetLibrary_Len();
+	float Max = 0;
+	sort();
+	Max = this->next->Books.book_price;
+	Lib_Conductor p = this->next;
+	while (p)
+	{
+		if (Max>p->Books.book_price)
+		{
+			break;
+		}
+		else
+		{
+			++Expen_num;
+		}
+		p = p->next;
+	}
+	std::cout << Expen_num << std::endl;
+	p = this->next;
+	for (int i = 0; i < Expen_num; i++,p = p->next)
+	{
+		std::cout << std::fixed << std::setprecision(2) << p->Books.book_number << " " << p->Books.book_name << " " << p->Books.book_price << std::endl;		
+	}
+
+}
+
+Data List_Lib::GetBook(int i)
+{
+	int j;
+	Lib_Conductor p;		/* 声明一结点p */
+	p = this->next;		/* 让p指向链表L的第一个结点 */
+	j = 1;		/*  j为计数器 */
+	while (p && j < i)  /* p不为空或者计数器j还没有等于i时，循环继续 */
+	{
+		p = p->next;  /* 让p指向下一个结点 */
+		++j;
+	}
+	Data book = p->Books;   /*  取第i个元素的数据 */
+	return book;
 }
