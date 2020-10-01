@@ -40,6 +40,8 @@ public:
 	void FindFav();
 	void SearchBook();
 	Status DeleteBook();
+	Status DeleteBook(int);
+	void GetRid_Repeat();
 }*Lib_Conductor;
 int List_Lib::len = 0;
 
@@ -50,15 +52,10 @@ int main()
 	int num;
 	std::cin >> num;
 	conductor->Create_Tail_List(num);
-	//conductor->Lib_OutPut();
-	if (conductor->DeleteBook())
-	{
-		conductor->Lib_OutPut();
-	} 
-	else
-	{
-		std::cout<<"Sorry，the position to be deleted is invalid!" << std::endl;
-	}
+	conductor->GetRid_Repeat();
+	std::cout << conductor->GetLibrary_Len() << std::endl;
+	conductor->Lib_OutPut();
+
 
 	return 0;
 }
@@ -326,6 +323,27 @@ Status List_Lib::DeleteBook()
 	q = p->next;
 	p->next = q->next;			/* 将q的后继赋值给p的后继 */
 	delete q;                   /* 让系统回收此结点，释放内存 */
+	--len;
+	return OK;
+}
+
+Status List_Lib::DeleteBook(int i)
+{
+	int j;
+	Lib_Conductor p, q;
+	p = this;
+	j = 1;
+	while (p->next && j < i)	/* 遍历寻找第i个元素 */
+	{
+		p = p->next;
+		++j;
+	}
+	if (!(p->next) || j > i)
+		return ERROR;           /* 第i个元素不存在 */
+	q = p->next;
+	p->next = q->next;			/* 将q的后继赋值给p的后继 */
+	delete q;                   /* 让系统回收此结点，释放内存 */
+	--len;
 	return OK;
 }
 
@@ -347,4 +365,35 @@ Data List_Lib::GetBook(int i)
 	}
     book = p->Books;   /*  取第i个元素的数据 */
 	return book;
+}
+
+void List_Lib::GetRid_Repeat()
+{
+	int length = GetLibrary_Len();
+	//MergeSort(L);
+
+	int* pos = new int[length - 1];
+	int sum = 0;//重复的数量
+	Lib_Conductor q,p;
+	q = p = this->next;
+	for (int i = 0; i < length - 1; i++,q=q->next)
+	{
+		p = q->next;
+		for (int j = i + 1; j < length; j++,p=p->next)
+		{
+			if (q->Books.book_number == p->Books.book_number)
+			{
+				++sum;
+				pos[sum - 1] = j;//记录重复位置
+			}
+		}
+	}
+	p = this->next;
+	//删除元素
+	for (int i = 0; i < sum; i++,p=p->next)
+	{
+		 p->DeleteBook(pos[i]);
+	}
+
+	delete[]pos;
 }
