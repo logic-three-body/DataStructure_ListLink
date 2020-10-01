@@ -10,9 +10,9 @@ typedef int Status;
 typedef int QElemType; /* QElemType类型根据实际情况而定，这里假设为int */
 struct Data
 {
-	std::string book_name;
-	std::string book_number;
-	float book_price;
+	std::string book_name="0";
+	std::string book_number="0";
+	float book_price=0;
 };
 typedef struct List_Lib
 {
@@ -38,6 +38,7 @@ public:
 	void FixPrice();
 	void FindExpen();
 	void FindFav();
+	void SearchBook();
 }*Lib_Conductor;
 int List_Lib::len = 0;
 
@@ -49,7 +50,7 @@ int main()
 	std::cin >> num;
 	conductor->Create_Tail_List(num);
 	//conductor->Lib_OutPut();
-	conductor->FindFav();
+	conductor->SearchBook();
 
 	return 0;
 }
@@ -278,8 +279,33 @@ void List_Lib::FindFav()
 	delete[] flag;
 }
 
+void List_Lib::SearchBook()
+{
+	int total = 0, search_index=0;
+	std::cin>>total;
+	for (int i = 0; i < total; i++)
+	{
+		std::cin >> search_index;
+		Data book;
+		book=GetBook(search_index);
+		if (book.book_name=="0"&&book.book_number=="0"&&book.book_price==0)
+		{
+			std::cout << "Sorry，the book on the best position doesn't exist!" << std::endl;
+		}
+		else
+		{
+			std::cout << std::fixed << std::setprecision(2) << book.book_number << " " << book.book_name << " " << book.book_price << std::endl;
+		}
+	}
+}
+
 Data List_Lib::GetBook(int i)
 {
+	Data book;
+	if (i==0)
+	{
+		return book;
+	}
 	int j;
 	Lib_Conductor p;		/* 声明一结点p */
 	p = this->next;		/* 让p指向链表L的第一个结点 */
@@ -289,6 +315,6 @@ Data List_Lib::GetBook(int i)
 		p = p->next;  /* 让p指向下一个结点 */
 		++j;
 	}
-	Data book = p->Books;   /*  取第i个元素的数据 */
+    book = p->Books;   /*  取第i个元素的数据 */
 	return book;
 }
