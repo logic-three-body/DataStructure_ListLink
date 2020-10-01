@@ -28,6 +28,8 @@ public:
 	Status ListInsert(int i, const Data&);
 	Status ListInsert(const Data&);
 	void Create_Tail_List(int);
+	void Create_Head_List(int);
+	void HeadListInsert(const Data&);
 	void Lib_OutPut();
 	Status GetLibrary_Len() { return len; };
 	void sort();
@@ -40,15 +42,9 @@ int List_Lib::len = 0;
 int main()
 {
 	Lib_Conductor conductor = new List_Lib;
-	Data book;
-	std::cin >> book.book_number >> book.book_name >> book.book_price;
-	while (book.book_number != "0"&&book.book_name != "0"&&book.book_price != 0)
-	{
-		conductor->ListInsert(book);
-		std::cin >> book.book_number >> book.book_name >> book.book_price;
-	}
-	std::cout << std::fixed << std::setprecision(2) << conductor->GetAver() << std::endl;
-	conductor->FixPrice();
+	int num;
+	std::cin >> num;
+	conductor->Create_Head_List(num);
 	conductor->Lib_OutPut();
 	return 0;
 }
@@ -102,6 +98,24 @@ void List_Lib::Create_Tail_List(int n)
 {
 	Lib_Conductor p, r;
 	//头节点存长度
+}
+
+void List_Lib::Create_Head_List(int n)
+{
+	Data book;
+	for (int i = 0; i < n; i++)
+	{
+		std::cin >> book.book_number >> book.book_name >> book.book_price;
+		HeadListInsert(book);
+	}
+}
+
+void List_Lib::HeadListInsert(const Data &b)
+{
+	++len;
+	Lib_Conductor p=new List_Lib(b);
+	p->next = this->next;
+	this->next = p;
 }
 
 void List_Lib::Lib_OutPut()
