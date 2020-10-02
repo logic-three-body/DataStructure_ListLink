@@ -51,6 +51,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Difference", "Difference\Di
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DivideLink", "DivideLink\DivideLink.vcxproj", "{A8092E55-CBC2-4CEA-B7F7-68B489DD40CC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeleteRange", "DeleteRange\DeleteRange.vcxproj", "{3A5C6C38-5554-4CCB-8648-6D23446902B6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeleteRange_Web", "DeleteRange_Web\DeleteRange_Web.vcxproj", "{E265AE63-9F9C-4F85-BAA6-EE18415B941B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -251,6 +255,22 @@ Global
 		{A8092E55-CBC2-4CEA-B7F7-68B489DD40CC}.Release|x64.Build.0 = Release|x64
 		{A8092E55-CBC2-4CEA-B7F7-68B489DD40CC}.Release|x86.ActiveCfg = Release|Win32
 		{A8092E55-CBC2-4CEA-B7F7-68B489DD40CC}.Release|x86.Build.0 = Release|Win32
+		{3A5C6C38-5554-4CCB-8648-6D23446902B6}.Debug|x64.ActiveCfg = Debug|x64
+		{3A5C6C38-5554-4CCB-8648-6D23446902B6}.Debug|x64.Build.0 = Debug|x64
+		{3A5C6C38-5554-4CCB-8648-6D23446902B6}.Debug|x86.ActiveCfg = Debug|Win32
+		{3A5C6C38-5554-4CCB-8648-6D23446902B6}.Debug|x86.Build.0 = Debug|Win32
+		{3A5C6C38-5554-4CCB-8648-6D23446902B6}.Release|x64.ActiveCfg = Release|x64
+		{3A5C6C38-5554-4CCB-8648-6D23446902B6}.Release|x64.Build.0 = Release|x64
+		{3A5C6C38-5554-4CCB-8648-6D23446902B6}.Release|x86.ActiveCfg = Release|Win32
+		{3A5C6C38-5554-4CCB-8648-6D23446902B6}.Release|x86.Build.0 = Release|Win32
+		{E265AE63-9F9C-4F85-BAA6-EE18415B941B}.Debug|x64.ActiveCfg = Debug|x64
+		{E265AE63-9F9C-4F85-BAA6-EE18415B941B}.Debug|x64.Build.0 = Debug|x64
+		{E265AE63-9F9C-4F85-BAA6-EE18415B941B}.Debug|x86.ActiveCfg = Debug|Win32
+		{E265AE63-9F9C-4F85-BAA6-EE18415B941B}.Debug|x86.Build.0 = Debug|Win32
+		{E265AE63-9F9C-4F85-BAA6-EE18415B941B}.Release|x64.ActiveCfg = Release|x64
+		{E265AE63-9F9C-4F85-BAA6-EE18415B941B}.Release|x64.Build.0 = Release|x64
+		{E265AE63-9F9C-4F85-BAA6-EE18415B941B}.Release|x86.ActiveCfg = Release|Win32
+		{E265AE63-9F9C-4F85-BAA6-EE18415B941B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
