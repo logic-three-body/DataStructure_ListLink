@@ -45,6 +45,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Delete_Pointed_Node", "Dele
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Delete Linear", "Delete Linear\Delete Linear.vcxproj", "{4FFD5054-4570-44ED-991C-58541B87E1E0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Link Intersection", "Link Intersection\Link Intersection.vcxproj", "{096B1578-CC69-406E-9971-B6EB888C6CAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -221,6 +223,14 @@ Global
 		{4FFD5054-4570-44ED-991C-58541B87E1E0}.Release|x64.Build.0 = Release|x64
 		{4FFD5054-4570-44ED-991C-58541B87E1E0}.Release|x86.ActiveCfg = Release|Win32
 		{4FFD5054-4570-44ED-991C-58541B87E1E0}.Release|x86.Build.0 = Release|Win32
+		{096B1578-CC69-406E-9971-B6EB888C6CAF}.Debug|x64.ActiveCfg = Debug|x64
+		{096B1578-CC69-406E-9971-B6EB888C6CAF}.Debug|x64.Build.0 = Debug|x64
+		{096B1578-CC69-406E-9971-B6EB888C6CAF}.Debug|x86.ActiveCfg = Debug|Win32
+		{096B1578-CC69-406E-9971-B6EB888C6CAF}.Debug|x86.Build.0 = Debug|Win32
+		{096B1578-CC69-406E-9971-B6EB888C6CAF}.Release|x64.ActiveCfg = Release|x64
+		{096B1578-CC69-406E-9971-B6EB888C6CAF}.Release|x64.Build.0 = Release|x64
+		{096B1578-CC69-406E-9971-B6EB888C6CAF}.Release|x86.ActiveCfg = Release|Win32
+		{096B1578-CC69-406E-9971-B6EB888C6CAF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
