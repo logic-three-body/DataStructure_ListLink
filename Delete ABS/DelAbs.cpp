@@ -1,6 +1,6 @@
 #include <iostream>
 #include<cmath>
-#include<string.h>
+#include<string.h>//For metset
 using namespace std;
 #define OK 1
 #define ERROR 0
