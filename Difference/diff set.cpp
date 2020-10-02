@@ -62,21 +62,20 @@ int ListLength(LinkList L)
 /*求差集，相等删除*/
 Status Diff(LinkList& La, LinkList&Lb)
 {
-	if (La&&Lb||La->next&&Lb->next)
+	if (!La&&!Lb&&!La->next&&!Lb->next)
 	{
 		return ERROR;
 	}
 	int count = 0;//元素个数
 	LinkList pa = La->next;
 	LinkList pb = Lb->next;
-	LinkList pre = pa;
+	LinkList pre = La;
 	LinkList tmp = nullptr;
 	while (pa&&pb)
 	{
 		//谁小谁后移
 		if (pa->data<pb->data)
 		{
-			++count;
 			pre = pa;
 			pa = pa->next;
 		}
@@ -92,52 +91,8 @@ Status Diff(LinkList& La, LinkList&Lb)
 			delete tmp;
 		}
 	}
-	return OK;
+	return count;
 }
-int main()
-{
-	LinkList la, lb, lc;
-	InitList(&la);
-	InitList(&lb);
-	InitList(&lc);
-	int num1, num2;
-	std::cin >> num1 >> num2;
-	while (num1&&num2)
-	{
-		CreateListTail(&la, num1);
-		CreateListTail(&lb, num2);
-		if (Diff(la, lb))
-		{
-			ListTraverse(la);
-		}
-		std::cin >> num1 >> num2;
-	}
-	return 0;
-}
-
-
-
-
-
-
-
-/* 初始条件：顺序线性表L已存在 */
-/* 操作结果：依次对L的每个数据元素输出 */
-Status ListTraverse(LinkList& L)
-{
-	LinkList p = L->next;
-	std::cout << (p->data);
-	p = p->next;
-	while (p)
-	{
-		std::cout << " ";
-		std::cout << p->data;
-		p = p->next;
-	}
-	printf("\n");
-	return OK;
-}
-
 
 /*  随机产生n个元素的值，建立带表头结点的单链线性表L（尾插法） */
 void CreateListTail(LinkList *L, int n)
@@ -155,3 +110,46 @@ void CreateListTail(LinkList *L, int n)
 	}
 	r->next = nullptr;                       /* 表示当前链表结束 */
 }
+
+/* 初始条件：顺序线性表L已存在 */
+/* 操作结果：依次对L的每个数据元素输出 */
+Status ListTraverse(LinkList& L)
+{
+	LinkList p = L->next;
+	std::cout << (p->data);
+	p = p->next;
+	while (p)
+	{
+		std::cout << " ";
+		std::cout << p->data;
+		p = p->next;
+	}
+	printf("\n");
+	return OK;
+}
+int main()
+{
+	LinkList la, lb;
+	InitList(&la);
+	InitList(&lb);
+	int num1, num2;
+	std::cin >> num1 >> num2;
+	while (num1&&num2)
+	{
+
+		CreateListTail(&la, num1);
+		CreateListTail(&lb, num2);
+		Diff(la, lb);
+		ListTraverse(la);
+		std::cout << ListLength(la) << std::endl;
+		std::cin >> num1 >> num2;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
