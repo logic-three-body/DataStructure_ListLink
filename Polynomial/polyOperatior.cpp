@@ -95,7 +95,7 @@ Status PNode::AddPoly( PNode *& Pb)//Pa(this)+Pb
 		if (p1->exponent==p2->exponent)
 		{
 			sum = p1->coefficent + p2->coefficent;//保留系数和
-			if (!sum)
+			if (sum)
 			{
 				p1->coefficent = sum;//修改原链表此项(当前节点)系数
 				Pnow->next = p1;
