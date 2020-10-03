@@ -21,8 +21,7 @@ public:
 	Status Minus(PNode*&Pb);//相减（取反相加）
 	Status OutPutPoly();
 	Status DerivPoly();
-	Status MutiPoly(PNode*&Pb);
-	Status MutiPolyFast(PNode*&Pb);
+	Status MutiPoly(PNode*&Pb);	
 	PNode*next;
 }*Polynomial;
 
@@ -51,7 +50,7 @@ int main()
 		}
 		if (choice == "*")
 		{
-			polyA->MutiPolyFast(polyB);
+			polyA->MutiPoly(polyB);
 		}
 		if (choice == "'") {
 			polyA->DerivPoly();
@@ -254,38 +253,3 @@ Status PNode::MutiPoly(PNode *& Pb)
 	return OK;
 }
 
-Status PNode::MutiPolyFast(PNode *& Pb)
-{
-	if (!Pb->next)
-	{
-		return ERROR;
-	}
-	Polynomial p1 = this->next;
-	Polynomial p2 = Pb->next;
-	Polynomial L3 = new PNode;//目标多项式
-	Polynomial tmp = new PNode;
-	while (p1)
-	{
-		while (p2)
-		{
-			/*
-			Polynomial t = new PNode;
-			t->coefficent = p1->coefficent*p2->coefficent;
-			t->exponent = p1->exponent + p2->exponent;
-			tmp->next = t;
-			L3->AddPoly(tmp);
-			p2 = p2->next;
-			*/
-
-			p1->coefficent *= p2->coefficent;
-			p1->exponent += p2->coefficent;
-			p2 = p2->next;
-
-		}
-		p2 = Pb->next;
-		p1 = p1->next;
-	}
-	//this->next = L3->next;
-	//delete L3;
-	return OK;
-}
