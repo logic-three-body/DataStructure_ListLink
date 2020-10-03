@@ -130,6 +130,7 @@ Status DivArray_QS(ElemType*a, int length, ElemType*A1, ElemType*A2)
 
 //TODO:AC后尝试一下partion函数
 //Help:数据结构习题P43 QucikSort
+//非递归法快速排序（迭代）
 Status DivArray(ElemType*a, int length,ElemType*A1,ElemType*A2)
 {
 	if (!a&&length<=0)
@@ -213,6 +214,7 @@ int main()
 		CreateList(List, num);
 		//DivArray(List, num,a1,a2);
 		DivArray_QS(List, num, a1, a2);
+		ListTraverse(List, num);
 		std::cin >> num;
 	}
 	return 0;
