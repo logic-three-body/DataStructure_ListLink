@@ -18,7 +18,11 @@ public:
 	PNode() :next(nullptr) {};//初始化不创建
 	PNode(int num);//初始化并创建
 	Status AddPoly( PNode*&Pb);//相加
+	Status Minus(PNode*&Pb);//相减（取反相加）
 	Status OutPutPoly();
+	Status DerivPoly();
+	Status MutiPoly(PNode*&Pb);
+	Status MutiPolyFast(PNode*&Pb);
 	PNode*next;
 }*Polynomial;
 
@@ -40,11 +44,22 @@ int main()
 			polyA->AddPoly(polyB);
 			polyA->OutPutPoly();
 		}
-		if (choice == "-");
-		if (choice == "*");
-		if (choice == "'") {
-
+		if (choice == "-")
+		{
+			polyA->Minus(polyB);	
+			polyA->OutPutPoly();
 		}
+		if (choice == "*")
+		{
+			polyA->MutiPolyFast(polyB);
+		}
+		if (choice == "'") {
+			polyA->DerivPoly();
+			polyB->DerivPoly();
+			polyA->OutPutPoly();
+			polyB->OutPutPoly();
+		}
+		
 	}
 
 	
@@ -139,11 +154,27 @@ Status PNode::AddPoly( PNode *& Pb)//Pa(this)+Pb
 	return OK;
 }
 
+Status PNode::Minus(PNode *& Pb)
+{
+	if (!Pb&&!Pb->next)
+	{
+		return ERROR;
+	}
+	Polynomial p = Pb->next;
+	while (p)
+	{
+		p->coefficent *= -1;//取相反数
+		p = p->next;
+	}
+	this->AddPoly(Pb);
+	return OK;
+}
+
 Status PNode::OutPutPoly()
 {
-	if (!this&&!this->next)
+	if (!this->next)
 	{
-		std::cout << "Empty!\a" << std::endl;
+		std::cout << 0 << std::endl;
 		return ERROR;
 	}
 	PNode* p = this->next;
@@ -167,5 +198,94 @@ Status PNode::OutPutPoly()
 
 	std::cout << std::endl;
 
+	return OK;
+}
+
+Status PNode::DerivPoly()
+{
+	PNode* p = this->next;
+	if (!p)
+	{
+		return ERROR;
+	}
+	PNode* r = nullptr;
+	while (p)
+	{
+		p->coefficent *= p->exponent;
+		--p->exponent;
+		if (p->exponent< 0) {
+			r = p;
+			p = p->next;
+			delete r;
+		}
+		else {
+			p = p->next;
+		}
+	}
+	return OK;
+}
+
+Status PNode::MutiPoly(PNode *& Pb)
+{
+	if (!Pb->next)
+	{
+		return ERROR;
+	}
+	Polynomial p1 = this->next;
+	Polynomial p2 = Pb->next;
+	Polynomial L3 =new PNode;//目标多项式
+	Polynomial tmp = new PNode;
+	while (p1)
+	{
+		while (p2)
+		{
+			Polynomial t = new PNode;
+			t->coefficent = p1->coefficent*p2->coefficent;
+			t->exponent = p1->exponent+p2->exponent;
+			tmp->next = t;
+			L3->AddPoly(tmp);
+			p2 = p2->next;
+		}
+		p2 = Pb->next;
+		p1 = p1->next;
+	}
+	this->next = L3->next;
+	//delete L3;
+	return OK;
+}
+
+Status PNode::MutiPolyFast(PNode *& Pb)
+{
+	if (!Pb->next)
+	{
+		return ERROR;
+	}
+	Polynomial p1 = this->next;
+	Polynomial p2 = Pb->next;
+	Polynomial L3 = new PNode;//目标多项式
+	Polynomial tmp = new PNode;
+	while (p1)
+	{
+		while (p2)
+		{
+			/*
+			Polynomial t = new PNode;
+			t->coefficent = p1->coefficent*p2->coefficent;
+			t->exponent = p1->exponent + p2->exponent;
+			tmp->next = t;
+			L3->AddPoly(tmp);
+			p2 = p2->next;
+			*/
+
+			p1->coefficent *= p2->coefficent;
+			p1->exponent += p2->coefficent;
+			p2 = p2->next;
+
+		}
+		p2 = Pb->next;
+		p1 = p1->next;
+	}
+	//this->next = L3->next;
+	//delete L3;
 	return OK;
 }
