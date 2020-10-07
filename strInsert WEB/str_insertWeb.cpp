@@ -45,7 +45,7 @@ void insert(char *s, char *t, int pos)
 // 第二种插入方式  直接在pos位置插入t
 void insertss(char *s, char *t, int pos)
 {
-	char *p = s, r[5];
+	char *p = s, r[5];//r为暂存插入位之后的字符串
 	int i = 0, lent = 0;
 	if (pos < 1)
 	{
@@ -77,7 +77,7 @@ void insertss(char *s, char *t, int pos)
 		lent++;   //记录t长度
 	}
 	i = 0;
-	p = s + pos + lent - 1;  //p指向t后面
+	p = s + pos - 1 + lent ;  //p指向t后面
 
 	while (r[i] != '\0')
 	{
@@ -98,7 +98,7 @@ int main(int argc, char const *argv[])
 	printf("输入你想插入的位置\n");
 	std::cin >> pos;
 	printf("结果为：\n");
-	insert(s, t, pos);
-	//insertss(s, t, pos);
+	//insert(s, t, pos);
+	insertss(s, t, pos);
 	return 0;
 }
