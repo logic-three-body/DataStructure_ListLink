@@ -98,7 +98,7 @@ Status ListTraverse(LinkList& L)
 Status SortedListInsert(LinkList&L)//插入新的元素
 {
 
-	if (!L&&!L->next)
+	if (!L && !L->next)
 	{
 		return ERROR;
 	}
@@ -107,6 +107,7 @@ Status SortedListInsert(LinkList&L)//插入新的元素
 	ElemType elem;
 	std::cin >> elem;
 	LinkList NewNode = new Node;
+	NewNode->next = nullptr;
 	NewNode->data = elem;
 
 	//TODO : 完善Sorted:
@@ -114,10 +115,15 @@ Status SortedListInsert(LinkList&L)//插入新的元素
 	LinkList pre = L;
 	while (pNow)
 	{
-		if (NewNode->data<=pNow->data&&pre->data<=NewNode->data)//插入操作 此数必须在某两个数之间
+		if (NewNode->data <= pNow->data&&pre->data <= NewNode->data)//插入操作 此数必须在某两个数之间
 		{
 			NewNode->next = pNow;
 			pre->next = NewNode;
+			break;
+		}
+		else if (!pNow->next)//已经到最后一位，直接插入
+		{
+			pNow->next = NewNode;
 			break;
 		}
 		else
@@ -135,18 +141,55 @@ Status SortedListInsert(LinkList&L)//插入新的元素
 
 }
 
-Status DivMidList(LinkList&L)//中部分解链表
+Status FrontBackSplit(LinkList&LA,LinkList&LB)//中部分解链表
 {
+	if (!LA && !LA->next)
+	{
+		return ERROR;
+	}
+
+	int length = LA->data;//获取链表长度
+	LinkList flag = LA->next;
+	LinkList pre = LA;
+	for (int i = 0; i < length/2; i++)//获取居中节点地址
+	{
+		flag = flag->next;
+		pre = pre->next;
+	}
+
+	//分割
+	LB->next = flag;
+	LB->data = (length % 2 == 0) ? (length / 2) : ((length + 1) / 2);
+	LA->data = length / 2;
+	pre->next = nullptr;
 	return OK;
 }
 
 int main()
 {
-	LinkList List;
-	int Elem_num;//元素个数
-	std::cin >> Elem_num;
-	CreateListTail(&List,Elem_num);//尾插法构建链表
-	SortedListInsert(List);
-	system("pause");
+	while (true)
+	{
+		LinkList List;
+		InitList(&List);
+		int Elem_num;//元素个数
+		std::cin >> Elem_num;
+		if (!Elem_num)
+		{
+			break;
+		}
+		CreateListTail(&List, Elem_num);//尾插法构建链表
+		//开始插入元素
+		SortedListInsert(List);
+		ListTraverse(List);
+		//开始分割链表
+		LinkList ListB;
+		InitList(&ListB);
+		FrontBackSplit(List, ListB);
+		ListTraverse(List);
+		ListTraverse(ListB);
+		std::cout << "原表长度 :" << List->data << std::endl;
+		std::cout <<"B表长度 :" << ListB->data << std::endl;		
+	}
+
 	return 0;
 }
