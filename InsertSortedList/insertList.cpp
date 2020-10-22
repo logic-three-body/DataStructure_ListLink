@@ -35,29 +35,10 @@ Status InitList(LinkList *L)
 	return OK;
 }
 
-/* 初始条件：顺序线性表L已存在。操作结果：若L为空表，则返回TRUE，否则返回FALSE */
-Status ListEmpty(LinkList L)
-{
-	if (L->next)
-		return FALSE;
-	else
-		return TRUE;
-}
 
 
 
-/* 初始条件：顺序线性表L已存在。操作结果：返回L中数据元素个数 */
-int ListLength(const LinkList& L)
-{
-	int i = 0;
-	LinkList p = L->next; /* p指向第一个结点 */
-	while (p)
-	{
-		i++;
-		p = p->next;
-	}
-	return i;
-}
+
 
 /*  随机产生n个元素的值，建立带表头结点的单链线性表L（尾插法） */
 void CreateListTail(LinkList *L, int n)
