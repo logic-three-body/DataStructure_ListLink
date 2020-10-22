@@ -127,9 +127,9 @@ Status DivArray_QS(ElemType*a, int length, ElemType*A1, ElemType*A2)
 	ListTraverse(A2, length - mid);
 	return OK;
 }
-
+//50,10,90,30,70,40,80,60,20
 //TODO:AC后尝试一下partion函数
-//Help:数据结构习题P43 QucikSort
+//Help:数据结构习题P43 QucikSort ，这不是快速排序而是划分算法
 Status DivArray(ElemType*a, int length,ElemType*A1,ElemType*A2)
 {
 	if (!a&&length<=0)
@@ -211,8 +211,8 @@ int main()
 	{
 		List = new ElemType[num];
 		CreateList(List, num);
-		//DivArray(List, num,a1,a2);
-		DivArray_QS(List, num, a1, a2);
+		DivArray(List, num,a1,a2);
+		//DivArray_QS(List, num, a1, a2);
 		std::cin >> num;
 	}
 	return 0;
