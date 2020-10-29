@@ -1,4 +1,4 @@
-#include<iostream>
+#include<iostream>//Delete Linear list Elem
 
 #define OK 1
 #define ERROR 0

@@ -1,4 +1,4 @@
-#include<iostream>
+#include<iostream>//JosePhus Ring
 #include<new>
 #define OK 1
 #define ERROR 0

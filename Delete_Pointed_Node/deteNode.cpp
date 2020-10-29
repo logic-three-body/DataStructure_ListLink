@@ -1,4 +1,4 @@
-#include<iostream>
+#include<iostream>//Link_Delete Pointed Node
 
 #define OK 1
 #define ERROR 0

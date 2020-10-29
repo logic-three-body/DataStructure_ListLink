@@ -1,4 +1,4 @@
-#include<iostream>
+#include<iostream>//Linear List - Left Circulated Movement
 
 #define OK 1
 #define ERROR 0
